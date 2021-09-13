@@ -7,5 +7,6 @@ defmodule ShopWeb.Router do
 
   scope "/api", ShopWeb do
     pipe_through :api
+    resources "/carts", CartController, only: [:index, :create, :show]
   end
 end
