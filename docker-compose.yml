@@ -4,7 +4,7 @@ networks:
     driver: bridge
 services:
   postgres:
-    container_name: cart_postgress
+    container_name: shop_postgress
     image: postgres
     volumes:
       - './.data/postgres:/var/lib/postgresql'
@@ -16,8 +16,8 @@ services:
       - '5433:5432'
     networks:
       - app-tier
-  cart:
-    container_name: cart
+  shop:
+    container_name: shop
     build: .
     volumes:
       - .:/app
@@ -26,7 +26,7 @@ services:
     environment:
       POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: 'postgres'
-      POSTGRES_DATABASE: 'cart'
+      POSTGRES_DATABASE: 'shop'
       POSTGRES_HOST: 'postgres'
     networks:
       - app-tier
