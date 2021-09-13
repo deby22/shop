@@ -1,19 +1,17 @@
 # Shop
 
-To start your Phoenix server:
+Build project: `docker-compose build`
+Start project: `docker-compose up -d`
+Run migration: `docker exec -it shop mix ecto.setup`
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Start Phoenix endpoint with `mix phx.server`
+## Description
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Project allow to submit Cart
+Cart require at least one product.
+Cart contain list of products
+There is allowed max 3 products with the same name
+If Cart contains 5 products total value of cart is reduced by 1%
+If Cart contains 10 products total value of cart is reduced by 2%
+If Cart contains 20 products total value of cart is reduced by 5%
+If there is used `coupon` total value of cart is reduced by 5%.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix

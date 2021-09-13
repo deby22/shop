@@ -1,6 +1,21 @@
 defmodule Shop.MixProject do
   use Mix.Project
 
+  @phoenix_modules [
+    Shop.Application,
+    Shop.DataCase,
+    Shop.Repo,
+    ShopWeb,
+    ShopWeb.CartView,
+    ShopWeb.CouponView,
+    ShopWeb.ChangesetView,
+    ShopWeb.ChannelCase,
+    ShopWeb.ErrorView,
+    ShopWeb.FallbackController,
+    ShopWeb.Telemetry,
+    ShopWeb.UserSocket
+  ]
+
   def project do
     [
       app: :shop,
@@ -10,7 +25,8 @@ defmodule Shop.MixProject do
       compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [ignore_modules: @phoenix_modules]
     ]
   end
 
@@ -35,7 +51,7 @@ defmodule Shop.MixProject do
     [
       {:phoenix, "~> 1.5.12"},
       {:phoenix_ecto, "~> 4.4"},
-      {:ecto_sql, "~> 3.4"},
+      {:ecto_sql, "~> 3.7"},
       {:postgrex, ">= 0.0.0"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
