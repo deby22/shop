@@ -1,0 +1,36 @@
+version: '3.2'
+networks:
+  app-tier:
+    driver: bridge
+services:
+  postgres:
+    container_name: cart_postgress
+    image: postgres
+    volumes:
+      - './.data/postgres:/var/lib/postgresql'
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+      POOL: 100
+    ports:
+      - '5433:5432'
+    networks:
+      - app-tier
+  cart:
+    container_name: cart
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - '4000:4000'
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_DATABASE: 'cart'
+      POSTGRES_HOST: 'postgres'
+    networks:
+      - app-tier
+ 
+volumes:
+  pgdata:
+  app:
