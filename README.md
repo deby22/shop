@@ -15,3 +15,10 @@ If Cart contains 10 products total value of cart is reduced by 2%
 If Cart contains 20 products total value of cart is reduced by 5%
 If there is used `coupon` total value of cart is reduced by 5%.
 
+
+TODO:
+    Schema
+        Validation Coupon
+        Validation Cart
+    Context
+        Multi.transaction - use coupon

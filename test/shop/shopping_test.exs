@@ -13,14 +13,16 @@ defmodule Shop.ShoppingTest do
 
     test "list_carts/0 returns all carts" do
       valid_attrs = %{products: [%{name: "Test", price: 10.0}]}
-      cart = cart_fixture(valid_attrs)
-      assert Shopping.list_carts() == [cart]
+      new_cart = cart_fixture(valid_attrs)
+      [cart] = Shopping.list_carts()
+      assert cart.id == new_cart.id
     end
 
     test "get_cart!/1 returns the cart with given id" do
       valid_attrs = %{products: [%{name: "Test", price: 10.0}]}
-      cart = cart_fixture(valid_attrs)
-      assert Shopping.get_cart!(cart.id) == cart
+      new_cart = cart_fixture(valid_attrs)
+      cart = Shopping.get_cart!(new_cart.id)
+      assert cart.id == new_cart.id
     end
 
     test "create_cart/1 with valid data creates a cart" do

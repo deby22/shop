@@ -10,9 +10,19 @@ defmodule Shop.Shopping.Coupon do
   end
 
   @doc false
-  def changeset(cart, attrs) do
-    cart
+  def changeset(coupon, attrs) do
+    coupon
     |> cast(attrs, [:expired_at])
     |> validate_required(:expired_at)
+    |> validate_expired_at()
   end
+
+  defp validate_expired_at(changeset) do
+    validate_change(changeset, :expired_at, fn :expired_at, expired_at ->
+      diff = NaiveDateTime.utc_now() |> NaiveDateTime.diff(expired_at)
+      if diff < 0, do: [], else: [expired_at: "should be in the future"]
+    end)
+  end
+
+  def use(coupon), do: change(coupon, status: :used)
 end

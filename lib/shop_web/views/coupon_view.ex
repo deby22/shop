@@ -11,6 +11,6 @@ defmodule ShopWeb.CouponView do
   end
 
   def render("coupon.json", %{coupon: coupon}) do
-    %{uuid: coupon.uuid, expired_at: coupon.expired_at}
+    %{uuid: coupon.uuid, expired_at: coupon.expired_at, status: coupon.status}
   end
 end

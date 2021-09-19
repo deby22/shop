@@ -1,7 +1,7 @@
 defmodule ShopWeb.CouponControllerTest do
   use ShopWeb.ConnCase
 
-  @create_attrs %{expired_at: NaiveDateTime.utc_now()}
+  @create_attrs %{expired_at: NaiveDateTime.utc_now() |> NaiveDateTime.add(10)}
   @invalid_attrs %{}
 
   setup %{conn: conn} do
