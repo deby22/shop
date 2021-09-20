@@ -35,6 +35,14 @@ defmodule Shop.ShoppingTest do
     end
   end
 
+  describe "cart with coupon" do
+    test "create cart with valid coupon should use coupon and apply discount" do
+      tommorow = NaiveDateTime.utc_now() |> NaiveDateTime.add(24 * 60 * 60)
+      {:ok, coupon} = Shopping.create_coupon(%{expired_at: tommorow, discount: 10})
+      {:ok, cart} = Shopping.create_cart_with_coupon(%{products: [%{name: "Test", price: 10.0}], coupon: coupon.uuid})
+      assert Decimal.new("9.0") == cart.value
+    end
+  end
   describe "coupons" do
     alias Shop.Shopping.Coupon
 

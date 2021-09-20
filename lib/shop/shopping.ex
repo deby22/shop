@@ -21,11 +21,24 @@ defmodule Shop.Shopping do
     |> Repo.insert()
   end
 
+  def create_cart_with_coupon(%{coupon: coupon_uuid} = attrs) do
+    case get_coupon(coupon_uuid) do
+      nil -> create_cart(attrs)
+      coupon ->
+        use_coupon(coupon)
+        attrs
+        |> Map.put(:discount, coupon.discount)
+        |> create_cart()
+    end
+  end
+
   def list_coupons do
     Repo.all(Coupon)
   end
 
+  defp use_coupon(coupon), do: Coupon.use(coupon) |> Repo.update()
   def get_coupon!(uuid), do: Repo.get!(Coupon, uuid)
+  def get_coupon(uuid), do: Repo.get(Coupon, uuid)
 
   def create_coupon(attrs) do
     %Coupon{}

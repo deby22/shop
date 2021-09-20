@@ -23,7 +23,7 @@ defmodule Shop.Shopping.Coupon do
     validate_change(changeset, :discount, fn :discount, discount ->
       cond do
         discount < 0 -> [discount: "discount cannot be negative"]
-        discount > 0 -> [discount: "discount cannot be higher than 100"]
+        discount > 100 -> [discount: "discount cannot be higher than 100"]
         true -> []
       end
     end)
