@@ -27,5 +27,17 @@ defmodule Shop.Shoppin.CartTest do
 
       assert Decimal.new("60.0") == coupon.value
     end
+
+    test "discount should decrease value" do
+      {:ok, coupon} =
+        %Cart{}
+        |> Cart.changeset(%{
+          products: [%{name: "first", price: 100.0}],
+          discount: 10
+        })
+        |> Changeset.apply_action(:insert)
+
+      assert Decimal.new("90.0") == coupon.value
+    end
   end
 end

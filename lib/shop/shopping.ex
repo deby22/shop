@@ -1,6 +1,9 @@
 defmodule Shop.Shopping do
   @moduledoc false
 
+  # todo:
+  # if coupons is valid on create_cart get discount value
+  # acceptance/integration test
   import Ecto.Query, warn: false
   alias Shop.Repo
 

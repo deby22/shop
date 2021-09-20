@@ -5,6 +5,7 @@ defmodule Shop.Shopping.Coupon do
   @primary_key {:uuid, :binary_id, autogenerate: true}
   schema "coupons" do
     field :status, Ecto.Enum, values: [:new, :used], default: :new
+    field :discount, :integer, default: 0
     field :expired_at, :naive_datetime
     timestamps()
   end
@@ -12,9 +13,20 @@ defmodule Shop.Shopping.Coupon do
   @doc false
   def changeset(coupon, attrs) do
     coupon
-    |> cast(attrs, [:expired_at])
+    |> cast(attrs, [:expired_at, :discount])
     |> validate_required(:expired_at)
     |> validate_expired_at()
+    |> validate_discount()
+  end
+
+  defp validate_discount(changeset) do
+    validate_change(changeset, :discount, fn :discount, discount ->
+      cond do
+        discount < 0 -> [discount: "discount cannot be negative"]
+        discount > 0 -> [discount: "discount cannot be higher than 100"]
+        true -> []
+      end
+    end)
   end
 
   defp validate_expired_at(changeset) do

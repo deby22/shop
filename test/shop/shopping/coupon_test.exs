@@ -36,6 +36,28 @@ defmodule Shop.Shoppin.CouponTest do
 
       assert -10 == NaiveDateTime.utc_now() |> NaiveDateTime.diff(coupon.expired_at)
     end
+
+    test "discount cannot be lower than 0" do
+      future_date = NaiveDateTime.utc_now() |> NaiveDateTime.add(10)
+
+      {:error, %Changeset{errors: errors}} =
+        %Coupon{}
+        |> Coupon.changeset(%{expired_at: future_date, discount: -10})
+        |> Changeset.apply_action(:insert)
+
+      assert errors[:discount]
+    end
+
+    test "discount cannot be higher than 100" do
+      future_date = NaiveDateTime.utc_now() |> NaiveDateTime.add(10)
+
+      {:error, %Changeset{errors: errors}} =
+        %Coupon{}
+        |> Coupon.changeset(%{expired_at: future_date, discount: 101})
+        |> Changeset.apply_action(:insert)
+
+      assert errors[:discount]
+    end
   end
 
   describe "use/1" do
